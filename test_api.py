@@ -162,6 +162,299 @@ class TestCalculatorAPI(unittest.TestCase):
         data = response.json()
         self.assertEqual(data['result'], 30)
 
+    # ===== SCIENTIFIC FUNCTION TESTS =====
+
+    def test_sine_operation(self):
+        """Test sine operation (radians)"""
+        payload = {"operation": "sin", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 0.0, places=5)
+
+    def test_cosine_operation(self):
+        """Test cosine operation (radians)"""
+        payload = {"operation": "cos", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 1.0, places=5)
+
+    def test_tangent_operation(self):
+        """Test tangent operation (radians)"""
+        payload = {"operation": "tan", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 0.0, places=5)
+
+    def test_natural_logarithm_operation(self):
+        """Test natural logarithm operation"""
+        payload = {"operation": "ln", "args": [1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 0.0, places=5)
+
+    def test_exponential_operation(self):
+        """Test exponential operation (e^x)"""
+        payload = {"operation": "exp", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 1.0, places=5)
+
+    def test_pi_constant(self):
+        """Test pi constant"""
+        payload = {"operation": "pi", "args": []}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 3.141592653589793, places=5)
+
+    def test_e_constant(self):
+        """Test Euler's number constant"""
+        payload = {"operation": "e", "args": []}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 2.718281828459045, places=5)
+
+    def test_arcsine_operation(self):
+        """Test arcsine operation"""
+        payload = {"operation": "asin", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 0.0, places=5)
+
+    def test_hyperbolic_sine_operation(self):
+        """Test hyperbolic sine operation"""
+        payload = {"operation": "sinh", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertAlmostEqual(data['result'], 0.0, places=5)
+
+    # ===== ADVANCED SCIENTIFIC FUNCTION TESTS =====
+
+    def test_trigonometric_pi_values(self):
+        """Test trigonometric functions with π/2, π values"""
+        import math
+
+        # sin(π/2) = 1
+        payload = {"operation": "sin", "args": [math.pi/2]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 1.0, places=5)
+
+        # cos(π) = -1
+        payload = {"operation": "cos", "args": [math.pi]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], -1.0, places=5)
+
+        # tan(π/4) = 1
+        payload = {"operation": "tan", "args": [math.pi/4]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 1.0, places=5)
+
+    def test_inverse_trigonometric_functions(self):
+        """Test inverse trigonometric functions"""
+        import math
+
+        # asin(1) = π/2
+        payload = {"operation": "asin", "args": [1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.pi/2, places=5)
+
+        # acos(0) = π/2
+        payload = {"operation": "acos", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.pi/2, places=5)
+
+        # atan(1) = π/4
+        payload = {"operation": "atan", "args": [1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.pi/4, places=5)
+
+    def test_hyperbolic_functions_comprehensive(self):
+        """Test hyperbolic functions with various inputs"""
+        import math
+
+        # sinh(1) ≈ 1.1752
+        payload = {"operation": "sinh", "args": [1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.sinh(1), places=5)
+
+        # cosh(1) ≈ 1.5431
+        payload = {"operation": "cosh", "args": [1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.cosh(1), places=5)
+
+        # tanh(0.5) ≈ 0.4621
+        payload = {"operation": "tanh", "args": [0.5]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.tanh(0.5), places=5)
+
+    def test_logarithmic_functions_comprehensive(self):
+        """Test logarithmic functions with various inputs"""
+        import math
+
+        # ln(e²) = 2
+        payload = {"operation": "ln", "args": [math.e**2]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 2.0, places=5)
+
+        # log(100) = 2 (base 10)
+        payload = {"operation": "log", "args": [100]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 2.0, places=5)
+
+        # pow10(3) = 1000
+        payload = {"operation": "pow10", "args": [3]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 1000.0, places=5)
+
+    def test_exponential_functions_comprehensive(self):
+        """Test exponential functions with various inputs"""
+        import math
+
+        # exp(2) = e²
+        payload = {"operation": "exp", "args": [2]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.e**2, places=5)
+
+        # exp(-1) = 1/e
+        payload = {"operation": "exp", "args": [-1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 1/math.e, places=5)
+
+    def test_angle_conversion_functions(self):
+        """Test angle conversion functions"""
+        import math
+
+        # 180 degrees = π radians
+        payload = {"operation": "deg2rad", "args": [180]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], math.pi, places=5)
+
+        # π radians = 180 degrees
+        payload = {"operation": "rad2deg", "args": [math.pi]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 180.0, places=5)
+
+    def test_mathematical_constants_precision(self):
+        """Test mathematical constants for precision"""
+        import math
+
+        # Test pi precision
+        payload = {"operation": "pi", "args": []}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['result'], math.pi)
+
+        # Test e precision
+        payload = {"operation": "e", "args": []}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['result'], math.e)
+
+    # ===== SCIENTIFIC ERROR HANDLING TESTS =====
+
+    def test_arcsine_domain_error(self):
+        """Test arcsine domain error (input outside [-1, 1])"""
+        payload = {"operation": "asin", "args": [2]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
+    def test_arccosine_domain_error(self):
+        """Test arccosine domain error (input outside [-1, 1])"""
+        payload = {"operation": "acos", "args": [-2]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
+    def test_logarithm_negative_error(self):
+        """Test logarithm of negative number error"""
+        payload = {"operation": "ln", "args": [-1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
+    def test_logarithm_zero_error(self):
+        """Test logarithm of zero error"""
+        payload = {"operation": "log", "args": [0]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
+    def test_trigonometric_large_angles(self):
+        """Test trigonometric functions with large angles"""
+        import math
+
+        # sin(2π) should equal sin(0) = 0
+        payload = {"operation": "sin", "args": [2*math.pi]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 0.0, places=5)
+
+        # cos(2π) should equal cos(0) = 1
+        payload = {"operation": "cos", "args": [2*math.pi]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertAlmostEqual(response.json()['result'], 1.0, places=5)
+
+    def test_scientific_function_edge_cases(self):
+        """Test scientific functions with edge cases"""
+        import math
+
+        # Very small numbers
+        payload = {"operation": "exp", "args": [-100]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        result = response.json()['result']
+        self.assertLess(result, 1e-40)  # Should be very close to 0
+
+        # Very large numbers (but not causing overflow)
+        payload = {"operation": "ln", "args": [1e10]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+        self.assertEqual(response.status_code, 200)
+        result = response.json()['result']
+        self.assertAlmostEqual(result, math.log(1e10), places=3)
+
     # ===== ERROR HANDLING TESTS =====
 
     def test_divide_by_zero_error(self):
@@ -195,6 +488,33 @@ class TestCalculatorAPI(unittest.TestCase):
     def test_logarithm_negative_error(self):
         """Test logarithm of negative number error"""
         payload = {"operation": "log", "args": [-1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
+    def test_natural_logarithm_negative_error(self):
+        """Test natural logarithm of negative number error"""
+        payload = {"operation": "ln", "args": [-1]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
+    def test_arcsine_invalid_input_error(self):
+        """Test arcsine with invalid input (outside [-1, 1])"""
+        payload = {"operation": "asin", "args": [2]}
+        response = self.session.post(f"{self.base_url}/calculate", json=payload)
+
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertIn('error', data)
+
+    def test_arccosine_invalid_input_error(self):
+        """Test arccosine with invalid input (outside [-1, 1])"""
+        payload = {"operation": "acos", "args": [2]}
         response = self.session.post(f"{self.base_url}/calculate", json=payload)
 
         self.assertEqual(response.status_code, 400)

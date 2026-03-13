@@ -136,6 +136,48 @@ function App() {
         if (a <= 0) throw new Error('Logarithm requires positive number');
         result = Math.log10(a);
         break;
+      case 'sin':
+        result = Math.sin(a);
+        break;
+      case 'cos':
+        result = Math.cos(a);
+        break;
+      case 'tan':
+        result = Math.tan(a);
+        break;
+      case 'asin':
+        if (a < -1 || a > 1) throw new Error('Arcsine input must be between -1 and 1');
+        result = Math.asin(a);
+        break;
+      case 'acos':
+        if (a < -1 || a > 1) throw new Error('Arccosine input must be between -1 and 1');
+        result = Math.acos(a);
+        break;
+      case 'atan':
+        result = Math.atan(a);
+        break;
+      case 'ln':
+        if (a <= 0) throw new Error('Natural logarithm requires positive number');
+        result = Math.log(a);
+        break;
+      case 'exp':
+        result = Math.exp(a);
+        break;
+      case 'sinh':
+        result = Math.sinh(a);
+        break;
+      case 'cosh':
+        result = Math.cosh(a);
+        break;
+      case 'tanh':
+        result = Math.tanh(a);
+        break;
+      case 'pi':
+        result = Math.PI;
+        break;
+      case 'e':
+        result = Math.E;
+        break;
       default:
         throw new Error('Unknown operation');
     }
@@ -246,7 +288,12 @@ function App() {
     const inputValue = parseFloat(display);
     try {
       let result;
-      if (op === 'sqrt' || op === 'factorial' || op === 'log') {
+      // Single argument operations
+      if (op === 'sqrt' || op === 'factorial' || op === 'log' ||
+          op === 'sin' || op === 'cos' || op === 'tan' ||
+          op === 'asin' || op === 'acos' || op === 'atan' ||
+          op === 'ln' || op === 'exp' || op === 'sinh' || op === 'cosh' || op === 'tanh' ||
+          op === 'pi' || op === 'e') {
         result = await performCalculation(op, inputValue);
       } else {
         // For operations needing two operands, store the operation
@@ -378,6 +425,51 @@ function App() {
             </button>
             <button className="btn btn-refresh" onClick={checkBackendStatus} title="Check Backend Status">
               🔄
+            </button>
+          </div>
+        </div>
+
+        <div className="scientific-buttons">
+          <div className="button-row">
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('sin')} title="Sine (radians)">
+              sin
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('cos')} title="Cosine (radians)">
+              cos
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('tan')} title="Tangent (radians)">
+              tan
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('ln')} title="Natural Logarithm">
+              ln
+            </button>
+          </div>
+          <div className="button-row">
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('asin')} title="Arcsine (radians)">
+              asin
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('acos')} title="Arccosine (radians)">
+              acos
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('atan')} title="Arctangent (radians)">
+              atan
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('exp')} title="Exponential (e^x)">
+              eˣ
+            </button>
+          </div>
+          <div className="button-row">
+            <button className="btn btn-constant" onClick={() => performAdvancedOperation('pi')} title="Pi (π)">
+              π
+            </button>
+            <button className="btn btn-constant" onClick={() => performAdvancedOperation('e')} title="Euler's number (e)">
+              e
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('sinh')} title="Hyperbolic sine">
+              sinh
+            </button>
+            <button className="btn btn-scientific" onClick={() => performAdvancedOperation('cosh')} title="Hyperbolic cosine">
+              cosh
             </button>
           </div>
         </div>

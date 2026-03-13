@@ -74,6 +74,86 @@ class AdvancedCalculator:
             raise ValueError("Error: Log base must be positive and not equal to 1")
         return math.log(num, base)
     
+    # ===== SCIENTIFIC FUNCTIONS =====
+    def sine(self, angle: Union[int, float], degrees: bool = False) -> float:
+        """Calculate sine of an angle (in radians by default, or degrees if specified)."""
+        if degrees:
+            angle = math.radians(angle)
+        return math.sin(angle)
+    
+    def cosine(self, angle: Union[int, float], degrees: bool = False) -> float:
+        """Calculate cosine of an angle (in radians by default, or degrees if specified)."""
+        if degrees:
+            angle = math.radians(angle)
+        return math.cos(angle)
+    
+    def tangent(self, angle: Union[int, float], degrees: bool = False) -> float:
+        """Calculate tangent of an angle (in radians by default, or degrees if specified)."""
+        if degrees:
+            angle = math.radians(angle)
+        return math.tan(angle)
+    
+    def arcsine(self, value: Union[int, float], degrees: bool = False) -> float:
+        """Calculate arcsine (inverse sine) of a value."""
+        if not -1 <= value <= 1:
+            raise ValueError("Error: Arcsine input must be between -1 and 1")
+        result = math.asin(value)
+        return math.degrees(result) if degrees else result
+    
+    def arccosine(self, value: Union[int, float], degrees: bool = False) -> float:
+        """Calculate arccosine (inverse cosine) of a value."""
+        if not -1 <= value <= 1:
+            raise ValueError("Error: Arccosine input must be between -1 and 1")
+        result = math.acos(value)
+        return math.degrees(result) if degrees else result
+    
+    def arctangent(self, value: Union[int, float], degrees: bool = False) -> float:
+        """Calculate arctangent (inverse tangent) of a value."""
+        result = math.atan(value)
+        return math.degrees(result) if degrees else result
+    
+    def natural_logarithm(self, num: Union[int, float]) -> float:
+        """Calculate natural logarithm (base e) of a number."""
+        if num <= 0:
+            raise ValueError("Error: Natural logarithm requires positive numbers")
+        return math.log(num)
+    
+    def exponential(self, exponent: Union[int, float]) -> float:
+        """Calculate e raised to the power of exponent (e^x)."""
+        return math.exp(exponent)
+    
+    def power_of_ten(self, exponent: Union[int, float]) -> float:
+        """Calculate 10 raised to the power of exponent (10^x)."""
+        return 10 ** exponent
+    
+    def pi_constant(self) -> float:
+        """Return the mathematical constant π (pi)."""
+        return math.pi
+    
+    def e_constant(self) -> float:
+        """Return the mathematical constant e (Euler's number)."""
+        return math.e
+    
+    def radians_to_degrees(self, radians: Union[int, float]) -> float:
+        """Convert radians to degrees."""
+        return math.degrees(radians)
+    
+    def degrees_to_radians(self, degrees: Union[int, float]) -> float:
+        """Convert degrees to radians."""
+        return math.radians(degrees)
+    
+    def hyperbolic_sine(self, value: Union[int, float]) -> float:
+        """Calculate hyperbolic sine of a value."""
+        return math.sinh(value)
+    
+    def hyperbolic_cosine(self, value: Union[int, float]) -> float:
+        """Calculate hyperbolic cosine of a value."""
+        return math.cosh(value)
+    
+    def hyperbolic_tangent(self, value: Union[int, float]) -> float:
+        """Calculate hyperbolic tangent of a value."""
+        return math.tanh(value)
+    
     def average(self, numbers: List[Union[int, float]]) -> Union[int, float]:
         """Calculate the average of a list of numbers."""
         if not numbers:
@@ -106,6 +186,23 @@ class AdvancedCalculator:
             'factorial': self.factorial,
             'log': self.logarithm,
             'average': self.average,
+            # Scientific functions
+            'sin': self.sine,
+            'cos': self.cosine,
+            'tan': self.tangent,
+            'asin': self.arcsine,
+            'acos': self.arccosine,
+            'atan': self.arctangent,
+            'ln': self.natural_logarithm,
+            'exp': self.exponential,
+            'pow10': self.power_of_ten,
+            'pi': self.pi_constant,
+            'e': self.e_constant,
+            'rad2deg': self.radians_to_degrees,
+            'deg2rad': self.degrees_to_radians,
+            'sinh': self.hyperbolic_sine,
+            'cosh': self.hyperbolic_cosine,
+            'tanh': self.hyperbolic_tangent,
         }
         
         if operation not in operations:

@@ -107,6 +107,78 @@ def mock_calculate(operation, args):
             result = math.log10(args[0])
         elif operation == 'absolute' and len(args) == 1:
             result = abs(args[0])
+        # Scientific functions
+        elif operation == 'sin' and len(args) >= 1:
+            import math
+            angle = args[0]
+            if len(args) > 1 and args[1]:  # degrees flag
+                angle = math.radians(angle)
+            result = math.sin(angle)
+        elif operation == 'cos' and len(args) >= 1:
+            import math
+            angle = args[0]
+            if len(args) > 1 and args[1]:  # degrees flag
+                angle = math.radians(angle)
+            result = math.cos(angle)
+        elif operation == 'tan' and len(args) >= 1:
+            import math
+            angle = args[0]
+            if len(args) > 1 and args[1]:  # degrees flag
+                angle = math.radians(angle)
+            result = math.tan(angle)
+        elif operation == 'asin' and len(args) >= 1:
+            import math
+            value = args[0]
+            if not -1 <= value <= 1:
+                raise ValueError("Arcsine input must be between -1 and 1")
+            result = math.asin(value)
+            if len(args) > 1 and args[1]:  # degrees flag
+                result = math.degrees(result)
+        elif operation == 'acos' and len(args) >= 1:
+            import math
+            value = args[0]
+            if not -1 <= value <= 1:
+                raise ValueError("Arccosine input must be between -1 and 1")
+            result = math.acos(value)
+            if len(args) > 1 and args[1]:  # degrees flag
+                result = math.degrees(result)
+        elif operation == 'atan' and len(args) >= 1:
+            import math
+            value = args[0]
+            result = math.atan(value)
+            if len(args) > 1 and args[1]:  # degrees flag
+                result = math.degrees(result)
+        elif operation == 'ln' and len(args) == 1:
+            import math
+            if args[0] <= 0:
+                raise ValueError("Natural logarithm requires positive numbers")
+            result = math.log(args[0])
+        elif operation == 'exp' and len(args) == 1:
+            import math
+            result = math.exp(args[0])
+        elif operation == 'pow10' and len(args) == 1:
+            result = 10 ** args[0]
+        elif operation == 'pi':
+            import math
+            result = math.pi
+        elif operation == 'e':
+            import math
+            result = math.e
+        elif operation == 'rad2deg' and len(args) == 1:
+            import math
+            result = math.degrees(args[0])
+        elif operation == 'deg2rad' and len(args) == 1:
+            import math
+            result = math.radians(args[0])
+        elif operation == 'sinh' and len(args) == 1:
+            import math
+            result = math.sinh(args[0])
+        elif operation == 'cosh' and len(args) == 1:
+            import math
+            result = math.cosh(args[0])
+        elif operation == 'tanh' and len(args) == 1:
+            import math
+            result = math.tanh(args[0])
         else:
             raise ValueError(f'Unsupported operation: {operation}')
 
@@ -125,7 +197,11 @@ def get_operations():
     operations = [
         'add', 'subtract', 'multiply', 'divide',
         'power', 'sqrt', 'factorial', 'log',
-        'modulo', 'absolute', 'percentage'
+        'modulo', 'absolute', 'percentage',
+        # Scientific functions
+        'sin', 'cos', 'tan', 'asin', 'acos', 'atan',
+        'ln', 'exp', 'pow10', 'pi', 'e',
+        'rad2deg', 'deg2rad', 'sinh', 'cosh', 'tanh'
     ]
     return jsonify({'operations': operations})
 
